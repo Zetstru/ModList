@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ModList</string>
+    <string name="et_listtitle_placeholder">Nom de la liste</string>
+</resources>
