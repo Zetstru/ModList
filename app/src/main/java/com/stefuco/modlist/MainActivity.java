@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
-                Intent secondeActivite = new Intent(MainActivity.this, ListActivity.class);
+                Intent secondeActivite = new Intent(MainActivity.this, ListDisplayActivity.class);
 
                 // On rajoute un extra
                 //secondeActivite.putExtra(AGE, 31);

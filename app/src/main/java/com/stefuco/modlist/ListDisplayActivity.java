@@ -1,12 +1,16 @@
 package com.stefuco.modlist;
 
+import android.app.ListActivity;
 import android.content.res.Resources;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.view.View;
 import android.app.AlertDialog;
@@ -25,7 +29,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 
-public class ListActivity extends AppCompatActivity {
+public class ListDisplayActivity extends ListActivity {
 
     ImageButton addButton = null;
     ImageButton delButton = null;
@@ -45,7 +49,7 @@ public class ListActivity extends AppCompatActivity {
         addButton = findViewById(R.id.ibtn_add);
         delButton = findViewById(R.id.ibtn_delete);
         clearButton = findViewById(R.id.ibtn_clean);
-        list = findViewById(R.id.list_content);
+        list = getListView();
         listTitle = findViewById(R.id.et_titre);
 
         //dataList = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.list_content)));
@@ -60,8 +64,8 @@ public class ListActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final EditText taskEditText = new EditText(ListActivity.this);
-                AlertDialog dialog = new AlertDialog.Builder(ListActivity.this)
+                final EditText taskEditText = new EditText(ListDisplayActivity.this);
+                AlertDialog dialog = new AlertDialog.Builder(ListDisplayActivity.this)
                         .setTitle("Add a new task")
                         .setMessage("")
                         .setView(taskEditText)
@@ -99,6 +103,35 @@ public class ListActivity extends AppCompatActivity {
                 saveList();
             }
         });
+
+    }
+
+
+    public void deleteItemClick(View v)
+    {
+        //reset all the listView items background colours
+        //before we set the clicked one..
+        ListView lvItems = getListView();
+        //get the row the clicked button is in
+        LinearLayout vwParentRow = (LinearLayout)v.getParent();
+        int indextbd = -1;
+        for (int i=0; i < lvItems.getChildCount(); i++) {
+
+            if(lvItems.getChildAt(i) == vwParentRow){
+                indextbd = i;
+                break;
+            }
+        }
+        if(indextbd != -1){
+            dataList.remove(indextbd);
+            adapter.notifyDataSetChanged();
+            saveList();
+        }
+
+
+        //TextView child = (TextView)vwParentRow.getChildAt(0);
+        //Button btnChild = (Button)vwParentRow.getChildAt(1);
+        //child.setText("I've been clicked!");
 
     }
 
